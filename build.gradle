@@ -1,0 +1,16 @@
+//
+// To run "entry point", use command for example:
+//    gradle  gogo
+// or:
+//    gradle -q gogo //for quite output
+// or:
+// sh gradlew gogo
+//
+
+task gogo {
+    logger.lifecycle " task gogo: configuration time"
+    doFirst {
+        logger.lifecycle " task gogo: run task time"
+        println("Hello from entry point of \"Simple Script\", from file: build.gradle")
+    }
+}
