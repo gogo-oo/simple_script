@@ -7,10 +7,18 @@
 // sh gradlew gogo
 //
 
-task gogo {
+apply(plugin: 'java')
+
+task gogo(type: JavaExec, dependsOn: 'classes') {
     logger.lifecycle " task gogo: configuration time"
     doFirst {
         logger.lifecycle " task gogo: run task time"
-        println("Hello from entry point of \"Simple Script\", from file: build.gradle")
+        main('oo.gogo.Main') //src/main/java/oo/gogo/Main.java
+        classpath(sourceSets.main.runtimeClasspath)
+        args(
+                "${project.file('.')}", // Folder where placed current 'build.gradle' file.
+                'Some custom string',
+                "Gradle Version: ${gradle.gradleVersion}" //Version of gradle runtime.
+        )
     }
 }
