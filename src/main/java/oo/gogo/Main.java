@@ -6,12 +6,6 @@ public class Main {
         System.out.println("args=" + java.util.Arrays.toString(args));
         System.out.println("Hello from entry point of \"Simple Script\", from file: src/main/java/oo/gogo/Main.java");
 
-        if (args.length > 0) {
-            WorkPlace.initialize(args[0]);
-        } else {
-            WorkPlace.initialize(".");
-        }
-
         System.out.println("workDir=" + WorkPlace.workDir.absolutePath);
         System.out.println("outDir =" + WorkPlace.outDir.absolutePath);
         System.out.println("tmpDir =" + WorkPlace.tmpDir.absolutePath);

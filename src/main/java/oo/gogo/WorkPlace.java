@@ -1,20 +1,22 @@
 package oo.gogo;
 
+import simple_script_constants.SimpleScriptConstants;
+
 import java.io.File;
 
 public class WorkPlace {
 
     //--- static section ---
-    public static void initialize(String workPlacePath) {
-        WorkPlace workPlaceDir = new WorkPlace(workPlacePath);
+    static {
+        WorkPlace workPlaceDir = new WorkPlace(SimpleScriptConstants.WORK_PLACE_PATH);
         workDir = workPlaceDir;
         outDir = new WorkPlace(workPlaceDir.file("out/from_simple_script").getAbsolutePath());
         tmpDir = new WorkPlace(workPlaceDir.file("tmp").getAbsolutePath());
     }
 
-    public static WorkPlace workDir;
-    public static WorkPlace outDir;
-    public static WorkPlace tmpDir;
+    public static final WorkPlace workDir;
+    public static final WorkPlace outDir;
+    public static final WorkPlace tmpDir;
     //=== static section ===
 
     public final String absolutePath;

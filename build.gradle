@@ -9,6 +9,25 @@
 
 apply(plugin: 'java')
 
+//---Constants Section for "Simple Script"---
+def simpleScriptConstantsJavaSrcDir = new File(project.buildDir, 'simple_script_constants_src/java/')
+sourceSets { main { java { srcDirs += [simpleScriptConstantsJavaSrcDir] } } }
+task simpleScriptConstants {
+    ext._normalize_path = { File fileObject -> return fileObject.absolutePath.replaceAll('\\\\', '/') }
+    doFirst {
+        File workPlaceDir = project.file('.') // Now this is folder where placed current 'build.gradle' file
+        def constantsJavaFile = new File(simpleScriptConstantsJavaSrcDir, 'simple_script_constants/SimpleScriptConstants.java')
+        constantsJavaFile.parentFile.mkdirs()
+        constantsJavaFile.write """package simple_script_constants;
+//simpleScriptConstantsJavaSrcDir is: ${ext._normalize_path(simpleScriptConstantsJavaSrcDir)}
+public interface SimpleScriptConstants { 
+    String WORK_PLACE_PATH = "${ext._normalize_path(workPlaceDir)}";
+}"""
+    }
+}
+project.afterEvaluate { prj -> prj.tasks.findByName("compileJava").dependsOn simpleScriptConstants }//https://docs.gradle.org/current/userguide/build_lifecycle.html#sec:project_evaluation
+//===Constants Section for "Simple Script"===
+
 task gogo(type: JavaExec, dependsOn: 'classes') {
     logger.lifecycle " task gogo: configuration time"
     doFirst {
