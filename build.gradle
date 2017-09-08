@@ -8,6 +8,11 @@
 //
 
 apply(plugin: 'java')
+apply(plugin: 'groovy')
+
+dependencies {
+    compile localGroovy()
+}
 
 //---Constants Section for "Simple Script"---
 def simpleScriptConstantsJavaSrcDir = new File(project.buildDir, 'simple_script_constants_src/java/')
@@ -32,7 +37,8 @@ task gogo(type: JavaExec, dependsOn: 'classes') {
     logger.lifecycle " task gogo: configuration time"
     doFirst {
         logger.lifecycle " task gogo: run task time"
-        main('oo.gogo.Main') //src/main/java/oo/gogo/Main.java
+//        main('oo.gogo.Main') //src/main/java/oo/gogo/Main.java
+        main('oo.gogo.MainGr') //src/main/groovy/oo/gogo/MainGr.groovy
         classpath(sourceSets.main.runtimeClasspath)
         args(
                 "${project.file('.')}", // Folder where placed current 'build.gradle' file.
