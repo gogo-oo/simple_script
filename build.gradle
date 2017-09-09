@@ -9,6 +9,25 @@
 
 apply(plugin: 'java')
 
+//---Kotlin Section---
+apply(plugin: 'kotlin')
+buildscript {
+    ext.kotlin_version = '1.0.7'
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+repositories {
+    mavenCentral()
+}
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+}
+//===Kotlin Section===
+
 //---Constants Section for "Simple Script"---
 def simpleScriptConstantsJavaSrcDir = new File(project.buildDir, 'simple_script_constants_src/java/')
 sourceSets { main { java { srcDirs += [simpleScriptConstantsJavaSrcDir] } } }
@@ -32,7 +51,8 @@ task gogo(type: JavaExec, dependsOn: 'classes') {
     logger.lifecycle " task gogo: configuration time"
     doFirst {
         logger.lifecycle " task gogo: run task time"
-        main('oo.gogo.Main') //src/main/java/oo/gogo/Main.java
+//        main('oo.gogo.Main') //src/main/java/oo/gogo/Main.java
+        main('oo.gogo.MainKt') //src/main/kotlin/oo/gogo/Main.kt
         classpath(sourceSets.main.runtimeClasspath)
         args(
                 "${project.file('.')}", // Folder where placed current 'build.gradle' file.
